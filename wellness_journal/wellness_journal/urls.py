@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
 
+def home(request):
+    return HttpResponse("Welcome to the Wellness Journal App")
 
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
-    path('api/', include('wellness_journal.urls')),
+    path('api/', include('journal.urls')),
 ]
