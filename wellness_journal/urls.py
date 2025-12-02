@@ -22,7 +22,8 @@ def home(request):
     return HttpResponse("Welcome to the Wellness Journal App")
 
 urlpatterns = [
-    path('', home, name='home'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('api/', include('journal.urls')),
+    path('home/', home, name='home'),
 ]

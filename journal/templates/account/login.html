@@ -1,0 +1,36 @@
+<h1 style="color: red;">CUSTOM TEMPLATE LOADED</h1>
+
+
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Sign In</h1>
+
+    <!-- Standard username/password login -->
+    <form method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign In</button>
+    </form>
+
+    <hr>
+
+    <!-- Social login section -->
+    <h2>Or sign in with:</h2>
+   {% load socialaccount %}
+<a href="{% provider_login_url 'google' %}">
+    <button type="button">
+        Sign in with Google
+    </button>
+</a>
+
+    <!-- Links -->
+    <p><a href="{% url 'account_signup' %}">Sign Up</a> | <a href="{% url 'account_reset_password' %}">Forgot Password?</a></p>
+</body>
+</html>
