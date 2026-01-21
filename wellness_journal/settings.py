@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'rest_framework',
     'journal',
+    'users.apps.UsersConfig',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

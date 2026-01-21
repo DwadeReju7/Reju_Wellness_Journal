@@ -1,6 +1,12 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import JournalEntryViewSet, index
+
+router = DefaultRouter()
+router.register(r'journal', JournalEntryViewSet, basename='journal')
+
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', index, name='index'),
+    path('', include(router.urls)),
 ]
