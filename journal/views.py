@@ -3,23 +3,37 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.http import HttpResponse
 from .models import JournalEntry
-from .serializers import JournalEntrySerializer
+from .serializers import JournalEntrySerializer, JournalEntryCreateSerializer
 from .prompts import get_prompt
-from django.utils.timezone import now
+from django.utils import timezone
 from rest_framework.exceptions import ValidationError
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
 def index(request):
     return HttpResponse("Journal app is running!")
+@login_required
+def today_page(request):
+    return render(request, "journal/today.html")
 
 class JournalEntryViewSet(viewsets.ModelViewSet):
     serializer_class = JournalEntrySerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_serializer_class(self):
+        if self.action == "create":
+            return JournalEntryCreateSerializer
+        return JournalEntrySerializer
+
     def get_queryset(self):
         return JournalEntry.objects.filter(user=self.request.user).order_by('-created_at')
 
     def perform_create(self, serializer):
-        today = now().date()
+        print("🔍 REQUEST DATA:", self.request.data)
+        print("🔍 REQUEST USER:", self.request.user)
+    
+        today = timezone.localdate()
 
         if JournalEntry.objects.filter(
             user=self.request.user,
@@ -43,8 +57,11 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def today(self, request):
-        today = now().date()
-        entry = JournalEntry.objects.filter(user=request.user,created_at__date=today).first()
+        today = timezone.localdate()
+        entry = (
+            JournalEntry.objects
+            .filter(user=request.user,created_at__date=today).first()
+        )
 
         if entry:
             serializer = self.get_serializer(entry)

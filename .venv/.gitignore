@@ -11,3 +11,12 @@ __pycache__/
 db.sqlite3
 .env
 
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Static files
+staticfiles/
