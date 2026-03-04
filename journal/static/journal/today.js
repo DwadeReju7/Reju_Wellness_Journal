@@ -25,25 +25,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // ✅ ENTRY ALREADY EXISTS
             if (data.has_entry) {
+                statusDiv.className = 'status-container entry-display';
                 statusDiv.innerHTML = `
-                    <p>✅ Journal submitted today</p>
-                    <p><strong>Prompt:</strong> ${data.entry.prompt}</p>
-                    <p><strong>Mood:</strong> ${data.entry.mood}</p>
-                    <p><strong>Reflection:</strong> ${data.entry.reflection}</p>
+                    <p class="checkmark">✓ Journal submitted today</p>
+                    <p><strong>Prompt</strong>${data.entry.prompt}</p>
+                    <p><strong>Mood</strong>${data.entry.mood}</p>
+                    <p><strong>Reflection</strong>${data.entry.reflection}</p>
                 `;
                 return;
             }
             // ✅ NO ENTRY — SHOW FORM
+            statusDiv.className = 'status-container';
             statusDiv.innerHTML = `
-                <p><strong>Today's Prompt</strong></p>
                 <p id="prompt-text">Loading prompt...</p>
 
                 <form id="journal-form">
-                    <textarea id="reflection" required></textarea>
+                    <label class="form-label">
+                        <strong>Your Reflection</strong>
+                        <textarea id="reflection" required placeholder="Write your thoughts..."></textarea>
+                    </label>
 
-                    <label>Mood:
+                    <label class="form-label">
+                        <strong>Today's Mood</strong>
                         <select id="mood" required>
-                            <option value="">Select mood</option>
+                            <option value="">Select your mood</option>
                             <option value="great">Great</option>
                             <option value="good">Good</option>
                             <option value="okay">Okay</option>
@@ -51,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </select>
                     </label>
 
-                    <button type="submit">Submit Journal</button>
+                    <button type="submit">Submit Journal Entry</button>
                 </form>
             `;
 
@@ -73,45 +78,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
         })
         .catch(() => {
-            document.getElementById("status").innerText =
-                "⚠️ Could not connect to backend";
+            document.getElementById("status").innerHTML =
+                "<p>⚠️ Could not connect to backend</p>";
         });
 
     // ✅ Event delegation for dynamically created form
-document.addEventListener("submit", e => {
-    if (e.target.id !== "journal-form") return;
+    document.addEventListener("submit", e => {
+        if (e.target.id !== "journal-form") return;
 
-    e.preventDefault();
+        e.preventDefault();
 
-    fetch("/journal/", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": getCookie("csrftoken")
-        },
-        body: JSON.stringify({
-            reflection: document.getElementById("reflection").value,
-            mood: document.getElementById("mood").value
+        fetch("/journal/", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                reflection: document.getElementById("reflection").value,
+                mood: document.getElementById("mood").value
+            })
         })
-    })
-    .then(res => {
-        if (!res.ok) {
-            return res.json().then(err => {
-                console.error("SERVER ERROR:", err);
-                throw err;
-            });
-        }
-        return res.json();
-    })
-    .then(() => {
-        console.log("Entry submitted!");
-        location.reload();
-    })
-    .catch(err => {
-        console.error("SUBMISSION FAILED:", err);
-        alert("⚠️ Failed to submit journal entry.");
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(err => {
+                    console.error("SERVER ERROR:", err);
+                    throw err;
+                });
+            }
+            return res.json();
+        })
+        .then(() => {
+            console.log("Entry submitted!");
+            location.reload();
+        })
+        .catch(err => {
+            console.error("SUBMISSION FAILED:", err);
+            alert("⚠️ Failed to submit journal entry.");
+        });
     });
-});
 
 });
