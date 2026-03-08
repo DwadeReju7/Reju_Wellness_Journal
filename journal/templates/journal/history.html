@@ -3,8 +3,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'journal/history.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal History</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'journal/history.css' %}">
 </head>
+<body>
+    <div class="grain-overlay"></div>
+    
+    <div class="container">
+        <header class="journal-header">
+            <nav class="breadcrumb">
+                <a href="/today/">← Back to Today</a>
+            </nav>
+            <h1 class="journal-title">Your Journey</h1>
+            <p class="subtitle">All your reflections in one place</p>
+        </header>
+
+        <main class="journal-main">
+            <div id="entries-container" class="entries-container">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading your entries...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{% static 'journal/history.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+:root {
+  --cream: #faf8f3;
+  --warm-white: #fffef9;
+  --sage: #8a9a8e;
+  --deep-green: #3d5a4c;
+  --charcoal: #2c2c2c;
+  --border-light: #e8e5dc;
+  --shadow: rgba(0, 0, 0, 0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
+  font-family: 'Lato', sans-serif;
+  color: var(--charcoal);
+  min-height: 100vh;
+  position: relative;
+  line-height: 1.6;
+}
+
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.journal-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: slideDown 0.6s ease 0.2s both;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.breadcrumb {
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumb a {
+  font-size: 0.875rem;
+  color: var(--sage);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: var(--deep-green);
+}
+
+.journal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  color: var(--deep-green);
+  letter-spacing: 0.02em;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--sage);
+  font-weight: 300;
+}
+
+/* Main content */
+.journal-main {
+  animation: fadeIn 0.8s ease 0.4s both;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 1rem;
+  border: 2px solid var(--border-light);
+  border-top-color: var(--sage);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading p {
+  color: var(--sage);
+  font-size: 0.95rem;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  color: var(--sage);
+  margin-bottom: 1.5rem;
+}
+
+.empty-state a {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--deep-green);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.empty-state a:hover {
+  background: var(--sage);
+  transform: translateY(-2px);
+}
+
+/* Entries list */
+.entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Individual entry card */
+.entry-card {
+  background: var(--warm-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.5s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+.entry-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--sage);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.entry-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px var(--shadow);
+}
+
+.entry-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger animation for multiple entries */
+.entry-card:nth-child(1) { animation-delay: 0.1s; }
+.entry-card:nth-child(2) { animation-delay: 0.2s; }
+.entry-card:nth-child(3) { animation-delay: 0.3s; }
+.entry-card:nth-child(4) { animation-delay: 0.4s; }
+.entry-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* Entry header */
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.entry-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--deep-green);
+}
+
+.entry-mood {
+  font-size: 0.85rem;
+  color: var(--sage);
+  text-transform: capitalize;
+}
+
+/* Entry content */
+.entry-prompt {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--sage);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.entry-reflection {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--charcoal);
+  white-space: pre-wrap;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  .journal-title {
+    font-size: 2rem;
+  }
+
+  .entry-card {
+    padding: 1.5rem;
+  }
+
+  .entry-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

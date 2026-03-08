@@ -16,6 +16,8 @@ def index(request):
 @login_required
 def today_page(request):
     return render(request, "journal/today.html")
+def history_page(request):
+    return render(request, "journal/history.html")
 
 class JournalEntryViewSet(viewsets.ModelViewSet):
     serializer_class = JournalEntrySerializer
