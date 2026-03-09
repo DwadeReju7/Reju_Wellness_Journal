@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Trends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'journal/trends.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    
+    <div class="container">
+        <header class="journal-header">
+            <nav class="breadcrumb">
+                <a href="/today/">← Back to Today</a>
+                <span class="separator">|</span>
+                <a href="/history/">View History</a>
+            </nav>
+            <h1 class="journal-title">Your Mood Journey</h1>
+            <p class="subtitle">Track your emotional patterns over time</p>
+        </header>
+
+        <main class="journal-main">
+            <!-- Date Range Filter -->
+            <div class="filter-section">
+                <label for="date-range">Time Period:</label>
+                <select id="date-range">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30" selected>Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="all">All Time</option>
+                </select>
+            </div>
+
+            <!-- Charts Container -->
+            <div id="charts-container">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading your mood data...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{% static 'journal/trends.js' %}"></script>
+</body>
+</html>

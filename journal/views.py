@@ -18,6 +18,8 @@ def today_page(request):
     return render(request, "journal/today.html")
 def history_page(request):
     return render(request, "journal/history.html")
+def trends_page(request):
+    return render(request, "journal/trends.html")
 
 class JournalEntryViewSet(viewsets.ModelViewSet):
     serializer_class = JournalEntrySerializer
