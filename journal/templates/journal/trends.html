@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <div class="grain-overlay"></div>
+    <img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo">
     
     <div class="container">
         <header class="journal-header">
@@ -25,7 +25,6 @@
         </header>
 
         <main class="journal-main">
-            <!-- Date Range Filter -->
             <div class="filter-section">
                 <label for="date-range">Time Period:</label>
                 <select id="date-range">
@@ -36,7 +35,6 @@
                 </select>
             </div>
 
-            <!-- Charts Container -->
             <div id="charts-container">
                 <div class="loading">
                     <div class="loading-spinner"></div>
@@ -45,6 +43,10 @@
             </div>
         </main>
     </div>
+
+    <footer class="footer">
+        Powered by Reju
+    </footer>
 
     <script src="{% static 'journal/trends.js' %}"></script>
 </body>

@@ -10,17 +10,17 @@
     <link rel="stylesheet" href="{% static 'journal/main.css' %}">
 </head>
 <body>
-    <div class="grain-overlay"></div>
+    <img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo">
     
     <div class="container">
         <header class="journal-header">
             <div class="date-display" id="current-date"></div>
             <h1 class="journal-title">Today's Reflection</h1>
             <nav class="breadcrumb">
-        <a href="/history/">View History →</a>
-         <span class="separator">|</span>
-    <a href="/trends/">Mood Trends</a>
-    </nav>
+                <a href="/history/">View History</a>
+                <span class="separator">|</span>
+                <a href="/trends/">Mood Trends</a>
+            </nav>
         </header>
 
         <main class="journal-main">
@@ -31,9 +31,12 @@
         </main>
     </div>
 
+    <footer class="footer">
+        Powered by Reju
+    </footer>
+
     <script src="{% static 'journal/today.js' %}"></script>
     <script>
-        // Display current date
         const dateEl = document.getElementById('current-date');
         const today = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };

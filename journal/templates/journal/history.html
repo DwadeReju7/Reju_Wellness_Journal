@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="{% static 'journal/history.css' %}">
 </head>
 <body>
-    <div class="grain-overlay"></div>
+    <img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo">
     
     <div class="container">
         <header class="journal-header">
             <nav class="breadcrumb">
                 <a href="/today/">← Back to Today</a>
                 <span class="separator">|</span>
-    <a href="/trends/">View Trends</a>
+                <a href="/trends/">View Trends</a>
             </nav>
             <h1 class="journal-title">Your Journey</h1>
             <p class="subtitle">All your reflections in one place</p>
@@ -32,6 +32,10 @@
             </div>
         </main>
     </div>
+
+    <footer class="footer">
+        Powered by Reju
+    </footer>
 
     <script src="{% static 'journal/history.js' %}"></script>
 </body>
