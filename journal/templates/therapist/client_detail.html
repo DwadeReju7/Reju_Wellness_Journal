@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ client.first_name }} {{ client.last_name }} - Reju</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'journal/therapist.css' %}">
+</head>
+<body>
+    <a href="/therapist/dashboard/"><img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo"></a>
+    
+    <div class="container">
+        <header class="dashboard-header">
+            <nav class="breadcrumb">
+                <a href="{% url 'therapist-dashboard' %}">← Back to Dashboard</a>
+            </nav>
+            <h1 class="dashboard-title">{{ client.first_name }} {{ client.last_name }}</h1>
+            <p class="client-email">{{ client.email }}</p>
+        </header>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-number">{{ total_entries }}</div>
+                <div class="stat-label">Total Entries</div>
+            </div>
+            {% for mood, count in mood_distribution.items %}
+            <div class="stat-card">
+                <div class="stat-number">{{ count }}</div>
+                <div class="stat-label">{{ mood|title }} Days</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <main class="dashboard-main">
+            <div class="section-header">
+                <h2>Journal Entries</h2>
+            </div>
+
+            {% if entries %}
+                <div class="entries-list">
+                    {% for entry in entries %}
+                    <div class="entry-card">
+                        <div class="entry-header">
+                            <div class="entry-date">{{ entry.created_at|date:"l, F d, Y" }}</div>
+                            <div class="entry-mood">Mood: {{ entry.mood|title }}</div>
+                        </div>
+                        <div class="entry-prompt">{{ entry.prompt }}</div>
+                        <div class="entry-reflection">{{ entry.reflection }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>This client hasn't written any journal entries yet.</p>
+                </div>
+            {% endif %}
+        </main>
+    </div>
+
+    <footer class="footer">
+        Powered by Reju
+    </footer>
+</body>
+</html>

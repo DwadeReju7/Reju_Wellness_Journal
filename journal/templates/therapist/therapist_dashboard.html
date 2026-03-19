@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Dashboard - Reju</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'journal/therapist.css' %}">
+</head>
+<body>
+    <a href="/therapist/dashboard/"><img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo"></a>
+    
+    <div class="container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1 class="dashboard-title">Therapist Dashboard</h1>
+                <p class="welcome-text">Welcome back, {{ request.user.first_name|default:request.user.username }}</p>
+            </div>
+            <div class="header-actions">
+                <a href="{% url 'account_logout' %}" class="btn-ghost">Logout</a>
+            </div>
+        </header>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-number">{{ total_clients }}</div>
+                <div class="stat-label">Active Clients</div>
+            </div>
+        </div>
+
+        <main class="dashboard-main">
+            <div class="section-header">
+                <h2>Your Clients</h2>
+            </div>
+
+            {% if clients %}
+                <div class="clients-grid">
+                    {% for item in clients %}
+                    <div class="client-card">
+                        <div class="client-header">
+                            <div class="client-info">
+                                <h3 class="client-name">{{ item.client.first_name }} {{ item.client.last_name }}</h3>
+                                <p class="client-username">@{{ item.client.username }}</p>
+                            </div>
+                            <a href="{% url 'client-detail' item.client.id %}" class="btn-primary">View Details</a>
+                        </div>
+                        
+                        <div class="client-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">{{ item.total_entries }}</span>
+                                <span class="stat-text">Total Entries</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">{{ item.entries_this_week }}</span>
+                                <span class="stat-text">This Week</span>
+                            </div>
+                        </div>
+
+                        <div class="client-footer">
+                            {% if item.last_entry_date %}
+                                <span class="last-entry">Last entry: {{ item.last_entry_date|date:"M d, Y" }}</span>
+                            {% else %}
+                                <span class="last-entry no-entries">No entries yet</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No clients assigned yet.</p>
+                    <p class="help-text">Clients will appear here once they're assigned to you by an administrator.</p>
+                </div>
+            {% endif %}
+        </main>
+    </div>
+
+    <footer class="footer">
+        Powered by Reju
+    </footer>
+</body>
+</html>
