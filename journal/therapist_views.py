@@ -1,4 +1,4 @@
-# Add this to journal/views.py or create a new therapist/views.py
+import json
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -114,3 +114,44 @@ def login_redirect(request):
         return redirect('therapist-dashboard')
     else:
         return redirect('journal-today')
+    
+@login_required
+def therapist_trends(request):
+    """Aggregate mood trends for all therapist's clients"""
+    # Check if user is a therapist
+    if not is_therapist(request.user):
+        return redirect('journal-today')
+    
+    therapist = request.user
+    
+    # Get all active client relationships
+    relationships = ClientTherapistRelationship.objects.filter(
+        therapist=therapist,
+        is_active=True
+    ).select_related('client')
+    
+    # Build client data with their entries
+    clients_data = []
+    for rel in relationships:
+        client = rel.client
+        entries = JournalEntry.objects.filter(user=client).order_by('-created_at')
+        
+        # Serialize entries for JavaScript
+        entries_list = [{
+            'mood': entry.mood,
+            'created_at': entry.created_at.isoformat(),
+        } for entry in entries]
+        
+        clients_data.append({
+            'id': client.id,
+            'name': f"{client.first_name} {client.last_name}" if client.first_name else client.username,
+            'entries': entries_list
+        })
+    
+    context = {
+        'clients_data': json.dumps(clients_data),
+        'total_clients': len(clients_data),
+    }
+    
+    return render(request, 'therapist/trends.html', context)
+ 

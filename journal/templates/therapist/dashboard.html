@@ -19,6 +19,7 @@
                 <p class="welcome-text">Welcome back, {{ request.user.first_name|default:request.user.username }}</p>
             </div>
             <div class="header-actions">
+                <a href="{% url 'therapist-trends' %}" class="btn-primary">View Trends</a>
                 <a href="{% url 'account_logout' %}" class="btn-ghost">Logout</a>
             </div>
         </header>

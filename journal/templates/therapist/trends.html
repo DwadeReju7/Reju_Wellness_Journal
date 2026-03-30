@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Trends - Reju</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'journal/therapist.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <a href="/therapist/dashboard/"><img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo"></a>
+    
+    <div class="container">
+        <header class="dashboard-header">
+            <nav class="breadcrumb">
+                <a href="{% url 'therapist-dashboard' %}">← Back to Dashboard</a>
+            </nav>
+            <h1 class="dashboard-title">Client Mood Trends</h1>
+            <p class="welcome-text">Compare mood patterns across all clients</p>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="filter-section">
+                <label for="date-range">Time Period:</label>
+                <select id="date-range">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30" selected>Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="all">All Time</option>
+                </select>
+            </div>
+
+            <div id="charts-container">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading client mood data...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        Powered by Reju
+    </footer>
+
+    <script>
+    const clientsData = {{ clients_data|safe }};
+    console.log("Clients data:", clientsData);
+</script>
+
+    <script src="{% static 'journal/therapist_trends.js' %}"></script>
+</body>
+</html>
