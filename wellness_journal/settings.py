@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    #'allauth.socialaccount',
+    #'allauth.socialaccount.providers.google',
     'rest_framework',
     'journal',
     'users.apps.UsersConfig',
@@ -62,20 +62,20 @@ REST_FRAMEWORK = {
     ],
 }
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': ['email', 'profile'],
-        'AUTH_PARAMS': {'access_type': 'online'},
-    }
-}
+#SOCIALACCOUNT_PROVIDERS = {
+    #'google': {
+       # 'SCOPE': ['email', 'profile'],
+       # 'AUTH_PARAMS': {'access_type': 'online'},
+ #   }
+#}
 
 # Replace with your values from Google console:
-SOCIALACCOUNT_KEYS = {
-    'google': {
-        'client_id': 'YOUR_CLIENT_ID',
-        'secret': 'YOUR_SECRET',
-    }
-}
+#SOCIALACCOUNT_KEYS = {
+   # 'google': {
+    #    'client_id': 'YOUR_CLIENT_ID',
+    #    'secret': 'YOUR_SECRET',
+  #  }
+#}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
