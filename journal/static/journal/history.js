@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const container = document.getElementById("entries-container");
 
-    fetch("/journal/", { credentials: "same-origin" })
+    fetch("/api/journal/", { credentials: "same-origin" })
         .then(res => {
             if (!res.ok) {
                 throw new Error(`HTTP ${res.status}`);

@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM ready - fetching mood data");
     
     // Fetch all entries
-    fetch("/journal/", { credentials: "same-origin" })
+    fetch("/api/journal/", { credentials: "same-origin" })
         .then(res => res.json())
         .then(entries => {
             console.log("Entries received:", entries);
