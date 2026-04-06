@@ -17,7 +17,7 @@ function getCookie(name) {
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM ready");
-    fetch("/journal/today/", { credentials: "same-origin" })
+    fetch("/api/journal/today/", { credentials: "same-origin" })
         .then(res => res.json())
         .then(data => {
             console.log("TODAY RESPONSE:", data);
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             // ✅ NOW fetch the prompt (element exists)
-            fetch("/journal/prompt/", { credentials: "same-origin" })
+            fetch("/api/journal/prompt/", { credentials: "same-origin" })
                 .then(res => res.json())
                 .then(data => {
                     const promptEl = document.getElementById("prompt-text");
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         e.preventDefault();
 
-        fetch("/journal/", {
+        fetch("/api/journal/", {
             method: "POST",
             credentials: "same-origin",
             headers: {
