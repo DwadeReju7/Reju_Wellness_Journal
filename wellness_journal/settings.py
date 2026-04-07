@@ -169,7 +169,7 @@ ACCOUNT_SIGNUP_REDIRECT_URL = '/login-redirect/'
 #redirect after successful logout 
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True 
