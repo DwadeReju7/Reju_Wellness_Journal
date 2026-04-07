@@ -164,6 +164,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
 #redirect after successful login
 LOGIN_REDIRECT_URL = '/login-redirect/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/login-redirect/'
 
 #redirect after successful logout 
 LOGOUT_REDIRECT_URL = '/accounts/login/'
