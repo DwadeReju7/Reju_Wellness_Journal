@@ -20,6 +20,11 @@
                 <a href="/history/">View History</a>
                 <span class="separator">|</span>
                 <a href="/trends/">Mood Trends</a>
+                <span class="separator">|</span>
+                <form method="post" action="/accounts/logout/">
+                     {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
             </nav>
         </header>
 
