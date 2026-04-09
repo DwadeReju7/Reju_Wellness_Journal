@@ -10,7 +10,13 @@
     <link rel="stylesheet" href="{% static 'journal/main.css' %}">
 </head>
 <body>
-    <img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo">
+     <div class="top-bar">
+        <img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="logo">
+        <form method="post" action="/accounts/logout/">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
     
     <div class="container">
         <header class="journal-header">
@@ -20,11 +26,6 @@
                 <a href="/history/">View History</a>
                 <span class="separator">|</span>
                 <a href="/trends/">Mood Trends</a>
-                <span class="separator">|</span>
-                <form method="post" action="/accounts/logout/">
-                     {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
             </nav>
         </header>
 
