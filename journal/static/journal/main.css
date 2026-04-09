@@ -32,12 +32,8 @@ body {
 
 /* Logo */
 .logo {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
   max-width: 120px;
   height: auto;
-  z-index: 10;
 }
 
 .container {
@@ -49,7 +45,7 @@ body {
   z-index: 2;
   animation: fadeIn 0.8s ease;
   flex: 1;
-  padding-top: 5rem;
+  /* Remove padding-top: 5rem since logo is no longer absolute */
 }
 
 @keyframes fadeIn {
@@ -309,16 +305,15 @@ button[type="submit"]:active {
   margin-top: 4rem;
 }
 
+/* Update mobile styles too */
 @media (max-width: 640px) {
   .logo {
     max-width: 100px;
-    top: 1.5rem;
-    left: 1.5rem;
+    /* Remove top and left */
   }
 
   .container {
     padding: 2rem 1rem;
-    padding-top: 4rem;
   }
 
   .journal-title {
@@ -339,6 +334,8 @@ button[type="submit"]:active {
     justify-content: space-between;
     align-items: center;
     padding: 16px 32px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .logout-btn {
