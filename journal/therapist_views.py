@@ -20,7 +20,7 @@ def therapist_dashboard(request):
     """Main therapist dashboard showing all clients"""
     # Add this check at the start
     if not is_therapist(request.user):
-        return redirect('journal-today')
+        return redirect('today')
     therapist = request.user
     
     # Get all active client relationships
@@ -69,7 +69,7 @@ def client_detail(request, client_id):
     """View detailed journal entries for a specific client"""
 
     if not is_therapist(request.user):
-        return redirect('journal-today')
+        return redirect('today')
     therapist = request.user
     
     # Verify therapist has access to this client
@@ -113,14 +113,14 @@ def login_redirect(request):
     if is_therapist(user):
         return redirect('therapist-dashboard')
     else:
-        return redirect('journal-today')
+        return redirect('today')
     
 @login_required
 def therapist_trends(request):
     """Aggregate mood trends for all therapist's clients"""
     # Check if user is a therapist
     if not is_therapist(request.user):
-        return redirect('journal-today')
+        return redirect('today')
     
     therapist = request.user
     

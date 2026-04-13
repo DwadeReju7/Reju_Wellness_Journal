@@ -8,7 +8,7 @@ router.register(r'journal', JournalEntryViewSet, basename='journal')
 
 urlpatterns = [
     path('', index, name='index'),
-    path("today/", today_page, name="journal-today"),
+    path("today/", today_page, name="today"),
     path("history/", history_page, name="journal-history"),
     path("trends/", trends_page, name="journal-trends"),
 
