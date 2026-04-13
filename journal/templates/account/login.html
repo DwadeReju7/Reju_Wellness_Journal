@@ -1,25 +1,37 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="
-    {% static 'journal/auth.css' %}">
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Reju</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'journal/auth.css' %}">
 </head>
 <body>
-    <h1>Sign In</h1>
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="auth-logo">
+                <h1 class="auth-title">Welcome Back</h1>
+                <p class="auth-subtitle">Sign in to continue your journey</p>
+            </div>
 
-    <!-- Standard username/password login -->
-    <form method="post" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign In</button>
-    </form>
+            <form method="post" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="auth-btn">Sign In</button>
+            </form>
 
-    <!-- Links -->
-    <p><a href="{% url 'account_signup' %}">Sign Up</a> | <a href="{% url 'account_reset_password' %}">Forgot Password?</a></p>
+            <div class="auth-links">
+                <a href="{% url 'account_signup' %}">Create an account</a>
+                <span class="separator">|</span>
+                <a href="{% url 'account_reset_password' %}">Forgot Password?</a>
+            </div>
+        </div>
+
+        <footer class="auth-footer">Powered by Reju</footer>
+    </div>
 </body>
 </html>

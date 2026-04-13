@@ -3,19 +3,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'journal/auth.css' %}">
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Reju</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'journal/auth.css' %}">
 </head>
 <body>
-    <h1>Create Account</h1>
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="{% static 'journal/logo.png' %}" alt="Reju Logo" class="auth-logo">
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Start your wellness journey today</p>
+            </div>
 
-    <form method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
+            <form method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="auth-btn">Create Account</button>
+            </form>
 
-    <p>Already have an account? <a href="{% url 'account_login' %}">Sign In</a></p>
+            <div class="auth-links">
+                <a href="{% url 'account_login' %}">Already have an account? Sign In</a>
+            </div>
+        </div>
+
+        <footer class="auth-footer">Powered by Reju</footer>
+    </div>
 </body>
 </html>
