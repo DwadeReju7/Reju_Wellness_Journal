@@ -76,6 +76,12 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def today(self, request):
         today = timezone.localdate()
+
+        is_demo = hasattr(request.user, 'profile') and request.user.profile.is_demo
+
+        if is_demo:
+            return Response({"has_entry": False})
+        
         entry = (
             JournalEntry.objects
             .filter(user=request.user,created_at__date=today).first()
