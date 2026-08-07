@@ -52,16 +52,6 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
         prompt = get_prompt(self.request.user)
         serializer.save(user=self.request.user, prompt=prompt)
 
-
-        if JournalEntry.objects.filter(
-            user=self.request.user,
-            created_at__date=today
-        ).exists():
-            raise ValidationError("You have already submitted a journal entry")
-
-        prompt = get_prompt(self.request.user)
-        serializer.save(user=self.request.user, prompt=prompt)
-
     @action(detail=False, methods=['get'])
     def prompt(self, request):
         profile = request.user.profile
