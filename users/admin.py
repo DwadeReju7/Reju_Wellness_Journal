@@ -19,4 +19,5 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_filter = ('role', 'journaling_frequency')
     list_editable = ['role', 'is_demo']
     search_fields = ['user__username', 'user__email']
+    fields = ('user', 'role', 'journaling_frequency', 'question_type', 'onboarding_completed', 'is_demo')
 # Register your models here.
