@@ -15,7 +15,7 @@ class ClientTherapistRelationshipAdmin(admin.ModelAdmin):
 # Update existing UserProfile admin to show role
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'role', 'journaling_frequency', 'onboarding_completed')
+    list_display = ('user', 'role', 'journaling_frequency', 'onboarding_completed', 'is_demo')
     list_filter = ('role', 'journaling_frequency')
     list_editable = ['role', 'is_demo']
     search_fields = ['user__username', 'user__email']
