@@ -39,6 +39,20 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
     
         today = timezone.localdate()
 
+         # Check if demo user — skip the one-entry limit
+        is_demo = hasattr(self.request.user, 'profile') and self.request.user.profile.is_demo
+
+        if not is_demo:
+            if JournalEntry.objects.filter(
+                user=self.request.user,
+                created_at__date=today
+            ).exists():
+                raise ValidationError("You have already submitted a journal entry")
+
+        prompt = get_prompt(self.request.user)
+        serializer.save(user=self.request.user, prompt=prompt)
+
+
         if JournalEntry.objects.filter(
             user=self.request.user,
             created_at__date=today

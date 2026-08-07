@@ -47,6 +47,8 @@ class UserProfile(models.Model):
         default=UserRole.CLIENT
     )
 
+    is_demo = models.BooleanField(default=False)
+
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
